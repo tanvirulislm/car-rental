@@ -2,35 +2,48 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Exception;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use function Termwind\render;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function CreateUser(Request $request)
+    public function RegistrationPage()
     {
-        $data = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:6',
-            'role' => 'required|in:customer,admin',
-        ]);
-
-
-        $data['password'] = Hash::make($data['password']);
-
-        User::create($data);
-
-        return redirect()->route('login')->with('success', 'Account created successfully!');
+        return inertia('Auth/Registration');
     }
 
-    public function Registration()
+
+    public function UserRegistration(Request $request)
     {
-        return Inertia::render('auth/registration');
+        try {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required',
+                'role' => 'required',
+            ]);
+
+            User::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => $request->input('password'),
+                'role' => $request->input('role'),
+            ]);
+
+            // dd($request->all());
+
+            return redirect('/login')->with('success', 'User registered successfully');
+        } catch (Exception $e) {
+            return redirect('/user-registration')->withErrors(['message' => $e->getMessage()]);
+        }
+    }
+
+    public function Login()
+    {
+        return inertia('Auth/Login');
     }
 }

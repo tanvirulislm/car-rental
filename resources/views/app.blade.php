@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,
 maximum-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="
 {{url('https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.
 css')}}" />
@@ -15,7 +16,7 @@ css')}}" />
     @inertiaHead
 </head>
 
-<body>
+<body class="font-['Inter']">
     @inertia
 </body>
 

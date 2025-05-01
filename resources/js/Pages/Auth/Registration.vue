@@ -1,4 +1,19 @@
-<script setup></script>
+<script setup>
+import { Link } from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
+
+const form = useForm({
+    name: "",
+    email: "",
+    role: "",
+    password: "",
+    confirmPassword: "",
+});
+
+function submit() {
+    form.post("/user-registration");
+}
+</script>
 
 <template>
     <div class="min-h-screen flex items-center justify-center">
@@ -6,7 +21,7 @@
             <h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">
                 Register for Car Rental
             </h2>
-            <form>
+            <form @submit.prevent="submit">
                 <div class="mb-4">
                     <label
                         for="fullName"
@@ -20,21 +35,11 @@
                             name="fullName"
                             required
                             class="w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            v-model="form.name"
                         />
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
+                        <UserIcon
                             class="h-5 w-5 text-gray-400 absolute right-3 top-2.5"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                            />
-                        </svg>
+                        />
                     </div>
                 </div>
                 <div class="mb-4">
@@ -50,21 +55,29 @@
                             name="email"
                             required
                             class="w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            v-model="form.email"
                         />
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
+                        <at-symbol-icon
                             class="h-5 w-5 text-gray-400 absolute right-3 top-2.5"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
+                        />
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label
+                        for="email"
+                        class="block text-sm font-medium text-gray-700"
+                        >Role</label
+                    >
+                    <div class="mt-1 relative">
+                        <select
+                            id="role"
+                            name="role"
+                            class="w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            v-model="form.role"
                         >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                            />
-                        </svg>
+                            <option value="customer">Customer</option>
+                            <option value="admin">Admin</option>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-4">
@@ -80,21 +93,11 @@
                             name="password"
                             required
                             class="w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            v-model="form.password"
                         />
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
+                        <LockClosedIcon
                             class="h-5 w-5 text-gray-400 absolute right-3 top-2.5"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2v3h4v-3c0-1.104-.896-2-2-2zm7-2h-2v2h2v-2zm0 4h-2v2h2v-2zm-14 0h2v2h-2v-2zm0-4h2v2h-2v-2z"
-                            />
-                        </svg>
+                        />
                     </div>
                 </div>
                 <div class="mb-6">
@@ -110,21 +113,11 @@
                             name="confirmPassword"
                             required
                             class="w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            v-model="form.confirmPassword"
                         />
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
+                        <LockClosedIcon
                             class="h-5 w-5 text-gray-400 absolute right-3 top-2.5"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-1.104 0-2 .896-2 2v3h4v-3c0-1.104-.896-2-2-2zm7-2h-2v2h2v-2zm0 4h-2v2h2v-2zm-14 0h2v2h-2v-2zm0-4h2v2h-2v-2z"
-                            />
-                        </svg>
+                        />
                     </div>
                 </div>
                 <button
@@ -136,7 +129,9 @@
             </form>
             <p class="mt-4 text-center text-sm text-gray-600">
                 Already have an account?
-                <a href="#" class="text-blue-600 hover:underline">Log in</a>
+                <Link href="/login" class="text-blue-600 hover:underline"
+                    >Log in</Link
+                >
             </p>
         </div>
     </div>
