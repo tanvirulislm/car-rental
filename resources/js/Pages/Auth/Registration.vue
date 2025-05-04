@@ -1,6 +1,8 @@
 <script setup>
-import { Link } from "@inertiajs/vue3";
-import { useForm } from "@inertiajs/vue3";
+import { Link, router, useForm } from "@inertiajs/vue3";
+import { createToaster } from "@meforma/vue-toaster";
+
+const toaster = createToaster();
 
 const form = useForm({
     name: "",
@@ -11,7 +13,34 @@ const form = useForm({
 });
 
 function submit() {
-    form.post("/user-registration");
+    if (!form.name) {
+        toaster.error("Username is required");
+        return;
+    }
+    if (!form.email) {
+        toaster.error("Email is required");
+        return;
+    }
+    if (!form.password) {
+        toaster.error("Password is required");
+        return;
+    }
+    if (form.password !== form.confirmPassword) {
+        toaster.error("Passwords do not match");
+        return;
+    }
+
+    form.post("/user-registration", {
+        onSuccess: () => {
+            toaster.success("Registration successful! Redirecting to login...");
+            router.push("/user-login");
+        },
+        onError: (errors) => {
+            if (errors.username) toaster.error(errors.username[0]);
+            if (errors.email) toaster.error(errors.email[0]);
+            if (errors.password) toaster.error(errors.password[0]);
+        },
+    });
 }
 </script>
 

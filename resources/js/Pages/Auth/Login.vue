@@ -1,5 +1,28 @@
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import { Link, router, useForm } from "@inertiajs/vue3";
+import { createToaster } from "@meforma/vue-toaster";
+
+const toaster = createToaster();
+const form = useForm({
+    email: "",
+    password: "",
+});
+
+function submit() {
+    form.post("/user-login", form.value, {
+        onSuccess: () => {
+            toaster.success("Login successful!");
+            router.push("/dashboard");
+        },
+        onError: (errors) => {
+            if (errors.message) {
+                toaster.error(errors.message);
+            } else {
+                toaster.error("Something went wrong!");
+            }
+        },
+    });
+}
 </script>
 
 <template>
@@ -8,7 +31,7 @@ import { Link } from "@inertiajs/vue3";
             <h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">
                 Login to rent a Car
             </h2>
-            <form>
+            <form @submit.prevent="submit">
                 <div class="mb-4">
                     <label
                         for="email"
@@ -22,6 +45,7 @@ import { Link } from "@inertiajs/vue3";
                             name="email"
                             required
                             class="w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            v-model="form.email"
                         />
                         <at-symbol-icon
                             class="h-5 w-5 text-gray-400 absolute right-3 top-2.5"
@@ -41,6 +65,7 @@ import { Link } from "@inertiajs/vue3";
                             name="password"
                             required
                             class="w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            v-model="form.password"
                         />
                         <LockClosedIcon
                             class="h-5 w-5 text-gray-400 absolute right-3 top-2.5"

@@ -8,8 +8,12 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::match(['get', 'post'], '/registration', [UserController::class, 'RegistrationPage']);
-Route::match(['get', 'post'], '/user-registration', [UserController::class, 'UserRegistration']);
-// Route::post('/user-registration', [UserController::class, 'UserRegistration']);
+Route::get('/registration', [UserController::class, 'RegistrationPage'])->name('register.page');
+Route::post('/user-registration', [UserController::class, 'UserRegistration'])->name('register.submit');
 
-Route::get('/login', [UserController::class, 'Login']);
+
+Route::get('/login', [UserController::class, 'Login'])->name('login.page');
+Route::post('/user-login', [UserController::class, 'UserLogin'])->name('login.submit');
+
+
+Route::get('/dashboard', [UserController::class, 'Dashboard'])->name('dashboard');
