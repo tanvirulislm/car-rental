@@ -3,8 +3,7 @@ import { createApp, h } from 'vue';
 import { createInertiaApp, router } from '@inertiajs/vue3';
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
-import * as HeroIcons from '@heroicons/vue/24/outline'; // Or /solid
-
+import * as HeroIcons from '@heroicons/vue/24/outline';
 import NProgress from 'nprogress';
 
 // Inertia progress bar

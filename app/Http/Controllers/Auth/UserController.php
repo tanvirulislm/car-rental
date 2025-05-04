@@ -67,4 +67,9 @@ class UserController extends Controller
             return back()->withErrors(['message' => 'Invalid email or password']);
         }
     }
+
+    public function Dashboard()
+    {
+        return inertia('Admin/Dashboard');
+    }
 }
