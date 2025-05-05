@@ -1,11 +1,11 @@
 <script setup>
-import CarsContent from "../../Components/Admin/CarsContent.vue";
+import CarContent from "../../Components/Admin/CarContent.vue";
 import Layout from "../../Components/Layout/Layout.vue";
 </script>
 
 <template>
     <Layout>
-        <CarsContent />
+        <CarContent />
     </Layout>
 </template>
 

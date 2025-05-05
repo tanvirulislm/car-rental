@@ -196,7 +196,7 @@
                     >
                         <div class="flex items-center space-x-2">
                             <img
-                                src="https://randomuser.me/api/portraits/men/44.jpg"
+                                src="https://static.vecteezy.com/system/resources/previews/021/548/095/non_2x/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg"
                                 alt="User"
                                 class="w-10 h-10 rounded-full border-2 border-white dark:border-gray-700 shadow-sm"
                             />
@@ -233,7 +233,7 @@
                                 class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center space-x-3"
                             >
                                 <img
-                                    src="https://randomuser.me/api/portraits/men/44.jpg"
+                                    src="https://static.vecteezy.com/system/resources/previews/021/548/095/non_2x/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg"
                                     alt="User"
                                     class="w-11 h-11 rounded-full border-2 border-white dark:border-gray-700 shadow-sm"
                                 />

@@ -48,10 +48,8 @@ class CarController extends Controller
     public function Cars()
     {
         $car = Car::all();
-        return inertia('Admin/Cars', [
+        return inertia('Admin/Car', [
             'car' => $car,
         ]);
     }
-
-    
 }
