@@ -337,26 +337,6 @@
     </main>
 </template>
 
-<script setup>
-import {
-    HomeIcon,
-    ChevronRightIcon,
-    UsersIcon,
-    CurrencyDollarIcon,
-    ArrowTrendingUpIcon,
-    CheckCircleIcon,
-    ExclamationCircleIcon,
-    ExclamationTriangleIcon,
-    CheckIcon,
-    UserPlusIcon,
-    CubeIcon,
-    ClockIcon,
-} from "@heroicons/vue/24/outline";
+<script setup></script>
 
-// You might need Chart.js or similar for the sparkline chart
-// import { Line } from 'vue-chartjs'; // Example
-</script>
-
-<style scoped>
-/* Add component-specific styles if needed */
-</style>
+<style scoped></style>

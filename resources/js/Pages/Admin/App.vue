@@ -9,13 +9,13 @@
             <TheHeader @toggle-sidebar="toggleSidebar" />
 
             <!-- Main Content Area -->
-            <DashboardContent />
+            <!-- <DashboardContent /> -->
+            <slot></slot>
         </div>
     </div>
 </template>
 
 <script setup>
-import DashboardContent from "@/Components/Admin/DashboardContent.vue";
 import TheHeader from "@/Components/Admin/TheHeader.vue";
 import TheSidebar from "@/Components/Admin/TheSidebar.vue";
 import { ref } from "vue";

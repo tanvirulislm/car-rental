@@ -30,7 +30,7 @@ class CarController extends Controller
             $imagePath = 'uploads/' . $imageName;
         }
 
-        $car = Car::create([
+        Car::create([
             'user_id' => $user_id,
             'name' => $request->input('name'),
             'brand' => $request->input('brand'),
@@ -41,5 +41,6 @@ class CarController extends Controller
             'availability' => $request->input('availability'),
             'image' => $imagePath,
         ]);
+        return response()->json(['message' => 'Car created successfully']);
     }
 }
