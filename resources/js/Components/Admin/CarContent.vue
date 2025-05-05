@@ -248,6 +248,9 @@
                 </div>
             </div>
         </div>
+
+        <!-- Cars Table -->
+        <CarList :car="car" />
     </main>
 </template>
 
@@ -256,6 +259,10 @@ import { useForm } from "@inertiajs/vue3";
 import { createToaster } from "@meforma/vue-toaster";
 import { ref } from "vue";
 import PlusCircle from "../Svg/PlusCircle.vue";
+import CarList from "./CarList.vue";
+defineProps({
+    car: Array,
+});
 
 const toaster = createToaster();
 

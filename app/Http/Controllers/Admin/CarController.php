@@ -52,9 +52,25 @@ class CarController extends Controller
 
     public function Cars()
     {
-        $car = Car::all();
+        $cars = Car::select([
+            'id',
+            'name',
+            'brand',
+            'model',
+            'year',
+            'car_type',
+            'daily_rent_price',
+            'availability',
+            'image'
+        ])->get();
+
         return inertia('Admin/Car', [
-            'car' => $car,
+            'car' => $cars
         ]);
+    }
+
+    public function DeleteCar(Car $car)
+    {
+        //
     }
 }
