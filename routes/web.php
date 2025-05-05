@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Auth\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\Auth\UserController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -17,3 +18,5 @@ Route::post('/user-login', [UserController::class, 'UserLogin'])->name('login.su
 
 
 Route::get('/dashboard', [UserController::class, 'Dashboard'])->name('dashboard');
+
+Route::get('/dashboard/cars', [CarController::class, 'Index']);

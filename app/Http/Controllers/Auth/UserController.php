@@ -70,6 +70,6 @@ class UserController extends Controller
 
     public function Dashboard()
     {
-        return inertia('Admin/Dashboard');
+        return inertia('Admin/App');
     }
 }

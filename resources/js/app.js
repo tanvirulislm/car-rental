@@ -1,11 +1,23 @@
-import './bootstrap';
-import { createApp, h } from 'vue';
+import * as HeroIcons from '@heroicons/vue/24/outline';
 import { createInertiaApp, router } from '@inertiajs/vue3';
+import NProgress from 'nprogress';
+import { createApp, h } from 'vue';
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
-import * as HeroIcons from '@heroicons/vue/24/outline';
-import NProgress from 'nprogress';
+import './bootstrap';
 
+// Add custom styles for NProgress
+const progressStyle = document.createElement('style');
+progressStyle.textContent = `
+  #nprogress .bar {
+    background: #4f46e5 !important; /* indigo-600 */
+    height: 3px;
+  }
+  #nprogress .peg {
+    box-shadow: 0 0 10px #4f46e5, 0 0 5px #4f46e5 !important;
+  }
+`;
+document.head.appendChild(progressStyle);
 // Inertia progress bar
 router.on('start', () => NProgress.start());
 router.on('finish', () => NProgress.done());
