@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Car;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CarController extends Controller
 {
@@ -42,5 +43,13 @@ class CarController extends Controller
             'image' => $imagePath,
         ]);
         return response()->json(['message' => 'Car created successfully']);
+    }
+
+    public function Cars()
+    {
+        $car = Car::all();
+        return inertia('Admin/Cars', [
+            'car' => $car,
+        ]);
     }
 }

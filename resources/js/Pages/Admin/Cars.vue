@@ -1,11 +1,11 @@
 <script setup>
-import DashboardContent from "../../Components/Admin/DashboardContent.vue";
+import CarsContent from "../../Components/Admin/CarsContent.vue";
 import Layout from "../../Components/Layout/Layout.vue";
 </script>
 
 <template>
     <Layout>
-        <DashboardContent />
+        <CarsContent />
     </Layout>
 </template>
 

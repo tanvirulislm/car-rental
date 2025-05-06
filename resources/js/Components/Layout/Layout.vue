@@ -9,7 +9,7 @@
             <TheHeader @toggle-sidebar="toggleSidebar" />
 
             <!-- Main Content Area -->
-            <!-- <DashboardContent /> -->
+
             <slot></slot>
         </div>
     </div>
@@ -26,7 +26,7 @@ const toggleSidebar = () => {
     isSidebarCollapsed.value = !isSidebarCollapsed.value;
 };
 
-// Add dark mode handling if needed, potentially using VueUse or a simple ref
+// Dark Mode handling
 // import { useDark, useToggle } from '@vueuse/core';
 // const isDark = useDark();
 // const toggleDark = useToggle(isDark);

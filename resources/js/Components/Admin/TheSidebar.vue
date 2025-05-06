@@ -62,11 +62,11 @@
                         </li>
                         <li class="mb-2">
                             <Link
-                                href="/dashboard/cars"
+                                href="/cars"
                                 class="flex items-center p-2 rounded-lg transition-colors cursor-pointer"
                                 :class="[
                                     isCollapsed ? 'justify-center' : '',
-                                    $page.url === '/dashboard/cars'
+                                    $page.url === '/cars'
                                         ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-gray-700'
                                         : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700',
                                 ]"
