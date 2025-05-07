@@ -28,18 +28,14 @@
                 </ol>
             </nav>
         </div>
-        
+
         <!-- Add Car Button -->
         <div class="mb-6 flex justify-end">
             <button
                 @click="openCreateModal"
                 class="flex items-center text-sm font-medium px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:hover:bg-blue-500"
             >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-      d="M12 8v8m-4-4h8" />
-  </svg>
+                <PlusCircle />
                 Add Car
             </button>
         </div>
@@ -72,7 +68,7 @@
                 <div
                     class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full"
                 >
-                    <form @submit.prevent="handleCreateCar">
+                    <form @submit.prevent="submit">
                         <div
                             class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4"
                         >
@@ -99,8 +95,8 @@
                                                 >
                                                 <input
                                                     type="text"
-                                                    v-model="newCarForm.name"
                                                     id="name"
+                                                    v-model="form.name"
                                                     placeholder="e.g. Mercedes-Benz E-Class"
                                                     required
                                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
@@ -114,8 +110,8 @@
                                                 >
                                                 <input
                                                     type="text"
-                                                    v-model="newCarForm.brand"
                                                     id="brand"
+                                                    v-model="form.brand"
                                                     placeholder="e.g. Mercedes-Benz"
                                                     required
                                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
@@ -129,8 +125,8 @@
                                                 >
                                                 <input
                                                     type="text"
-                                                    v-model="newCarForm.model"
                                                     id="model"
+                                                    v-model="form.model"
                                                     placeholder="e.g. E-Class"
                                                     required
                                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
@@ -148,16 +144,13 @@
                                                 >
                                                 <input
                                                     type="number"
-                                                    v-model.number="
-                                                        newCarForm.year
-                                                    "
                                                     id="year"
+                                                    v-model="form.year"
                                                     required
                                                     placeholder="e.g. 2023"
                                                     min="1900"
                                                     :max="
-                                                        new Date().getFullYear() +
-                                                        1
+                                                        new Date().getFullYear()
                                                     "
                                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
                                                 />
@@ -170,16 +163,12 @@
                                                     >Car Type</label
                                                 >
                                                 <input
-                                                    v-model="
-                                                        newCarForm.car_type
-                                                    "
                                                     id="car_type"
+                                                    v-model="form.car_type"
                                                     placeholder="e.g. Sedan"
                                                     required
                                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
-                                                >
-                                                    
-                                            </input>
+                                                />
                                             </div>
                                             <div>
                                                 <label
@@ -189,10 +178,10 @@
                                                 >
                                                 <input
                                                     type="number"
-                                                    step="0.01"
-                                                    v-model.number="
-                                                        newCarForm.daily_rent_price
+                                                    v-model="
+                                                        form.daily_rent_price
                                                     "
+                                                    step="0.01"
                                                     id="daily_rent_price"
                                                     placeholder="e.g. 50"
                                                     required
@@ -213,17 +202,18 @@
                                                 <input
                                                     type="file"
                                                     id="image"
-                                                    @change="handleImageUpload"
+                                                    @input="
+                                                        form.image =
+                                                            $event.target.files[0]
+                                                    "
                                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
                                                 />
                                             </div>
                                             <div class="flex items-center">
                                                 <input
                                                     id="availability"
-                                                    v-model="
-                                                        newCarForm.availability
-                                                    "
                                                     type="checkbox"
+                                                    v-model="form.availability"
                                                     class="h-4 w-4 text-blue-600 border-gray-300 dark:border-gray-500 rounded focus:ring-indigo-500 dark:bg-gray-700 dark:focus:ring-offset-gray-800"
                                                 />
                                                 <label
@@ -261,24 +251,46 @@
     </main>
 </template>
 
-<script setup>import { ref } from 'vue';
-// import { router } from '@inertiajs/vue3';
+<script setup>
+import { useForm } from "@inertiajs/vue3";
+import { createToaster } from "@meforma/vue-toaster";
+import { ref } from "vue";
+import PlusCircle from "../Svg/PlusCircle.vue";
 
-// Reactive state
-const showCreateModal = ref(false);
-const newCarForm = ref({
-    name: '',
-    brand: '',
-    model: '',
+const toaster = createToaster();
+
+const form = useForm({
+    name: "",
+    brand: "",
+    model: "",
     year: new Date().getFullYear(),
-    car_type: '',
-    daily_rent_price: '',
-    image: '',
-    availability: true
+    car_type: "",
+    daily_rent_price: "",
+    image: null,
+    availability: true,
 });
+
+function submit() {
+    form.post("/CreateCar", {
+        onSuccess: () => {
+            toaster.success("Car created successfully!");
+            // router.push("/cars");
+            closeCreateModal();
+            resetForm();
+        },
+        onError: (errors) => {
+            if (errors.message) {
+                toaster.error(errors.message);
+            } else {
+                toaster.error("Something went wrong!");
+            }
+        },
+    });
+}
+
+const showCreateModal = ref(false);
 const errors = ref({});
 
-// Modal control functions
 const openCreateModal = () => {
     showCreateModal.value = true;
 };
@@ -289,61 +301,8 @@ const closeCreateModal = () => {
 };
 
 const resetForm = () => {
-    newCarForm.value = {
-        name: '',
-        brand: '',
-        model: '',
-        year: new Date().getFullYear(),
-        car_type: '',
-        daily_rent_price: '',
-        image: '',
-        availability: true
-    };
+    form.reset();
     errors.value = {};
-};
-
-// Form handling functions
-const validateForm = () => {
-    errors.value = {};
-    let isValid = true;
-
-    if (!newCarForm.value.name.trim()) {
-        errors.value.name = 'Car name is required';
-        isValid = false;
-    }
-
-    if (!newCarForm.value.brand.trim()) {
-        errors.value.brand = 'Brand is required';
-        isValid = false;
-    }
-
-    // Add other validations as needed...
-
-    return isValid;
-};
-
-const handleImageUpload = (event) => {
-    newCarForm.value.image = event.target.files[0];
-};
-
-const submitForm = () => {
-    if (!validateForm()) return;
-
-    const formData = new FormData();
-    formData.append('name', newCarForm.value.name);
-    // Append other fields...
-
-    router.post('/CreateCar', formData, {
-        preserveScroll: true,
-        onSuccess: () => {
-            closeCreateModal();
-        },
-        onError: (err) => {
-            if (err.errors) {
-                errors.value = err.errors;
-            }
-        }
-    });
 };
 </script>
 

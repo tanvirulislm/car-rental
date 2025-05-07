@@ -10,7 +10,7 @@ class CarController extends Controller
 {
     public function CreateCar(Request $request)
     {
-        $user_id = $request->header('id');
+        // $user_id = $request->header('id');
 
         $request->validate([
             "name" => "required",
@@ -32,7 +32,7 @@ class CarController extends Controller
         }
 
         Car::create([
-            'user_id' => $user_id,
+            // 'user_id' => $user_id,
             'name' => $request->input('name'),
             'brand' => $request->input('brand'),
             'model' => $request->input('model'),
@@ -42,7 +42,12 @@ class CarController extends Controller
             'availability' => $request->input('availability'),
             'image' => $imagePath,
         ]);
-        return response()->json(['message' => 'Car created successfully']);
+        return redirect('/cars')->with('success', 'Car created successfully');
+    }
+
+    public function AddCar()
+    {
+        return inertia('Admin/AddCar');
     }
 
     public function Cars()
