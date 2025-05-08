@@ -20,5 +20,6 @@ Route::post('/user-login', [UserController::class, 'UserLogin'])->name('login.su
 Route::get('/dashboard', [UserController::class, 'Dashboard'])->name('dashboard');
 
 Route::post('/CreateCar', [CarController::class, 'CreateCar']);
-Route::get('/add-car', [CarController::class, 'AddCar']);
 Route::get('/cars', [CarController::class, 'Cars']);
+Route::delete('/cars/{car}', [CarController::class, 'DeleteCar']);
+// Route::delete('/cars/{id}', [CarController::class, 'DeleteCar']);

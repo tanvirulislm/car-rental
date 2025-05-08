@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Car;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 class CarController extends Controller
 {
@@ -71,6 +72,19 @@ class CarController extends Controller
 
     public function DeleteCar(Car $car)
     {
-        //
+        try {
+            // Delete associated image if exists
+            $carImage = 
+            if ($car->image && file_exists(public_path('uploads/' . $car->image))) {
+                unlink(public_path('uploads/' . $car->image));
+            }
+
+            $car->delete();
+
+            return redirect()->back()->with('success', 'Car deleted successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Failed to delete car: ' . $e->getMessage());
+        }
     }
 }
