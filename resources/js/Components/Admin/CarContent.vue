@@ -255,12 +255,11 @@
 </template>
 
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { Link, useForm } from "@inertiajs/vue3";
 import { createToaster } from "@meforma/vue-toaster";
 import { ref } from "vue";
 import PlusCircle from "../Svg/PlusCircle.vue";
 import CarList from "./CarList.vue";
-import { Link } from "@inertiajs/vue3";
 
 defineProps({
     car: Array,

@@ -75,7 +75,7 @@ class CarController extends Controller
 
     public function UpdateCar(Request $request, Car $car)
     {
-        $request->validate([
+        $validated = $request->validate([
             "name" => "required",
             "brand" => "required",
             "model" => "required",
@@ -83,10 +83,11 @@ class CarController extends Controller
             "car_type" => "required",
             "daily_rent_price" => "required",
             "availability" => "nullable",
-            "image" => "required",
+            "image" => "nullable|image",
         ]);
 
         $imagePath = $car->image;
+
         if ($request->hasFile('image')) {
             if ($imagePath && File::exists(public_path($imagePath))) {
                 File::delete(public_path($imagePath));
@@ -98,20 +99,23 @@ class CarController extends Controller
             $imagePath = 'uploads/' . $imageName;
         }
 
-        $updateData = $request->safe()->except(['image', '_method']);
+        // Prepare data for update
+        $updateData = collect($validated)->except(['image', '_method'])->toArray();
         $updateData['image'] = $imagePath;
 
-
+        // Normalize 'availability'
         $availability = $request->input('availability', false);
         if (is_string($availability)) {
             $updateData['availability'] = filter_var($availability, FILTER_VALIDATE_BOOLEAN);
         } else {
-            $updateData['availability'] = (bool)$availability;
+            $updateData['availability'] = (bool) $availability;
         }
+
         $car->update($updateData);
 
         return redirect('/cars')->with('success', 'Car updated successfully');
     }
+
 
     public function EditCar(Car $car)
     {
