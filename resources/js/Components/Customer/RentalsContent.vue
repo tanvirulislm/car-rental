@@ -97,7 +97,7 @@ const tabLabels = {};
                     href="#"
                     :class="[
                         'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm',
-                        activeTab.value === tab
+                        activeTab === tab
                             ? 'border-blue-500 text-blue-600'
                             : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
                     ]"
@@ -224,7 +224,9 @@ const tabLabels = {};
                 v-if="filteredRentals.length === 0"
                 class="text-center py-10 text-gray-500"
             >
-                No data available for this tab.
+                No bookings found in this category.
+                <br />
+                Try selecting a different tab or check back later!
             </div>
         </div>
     </div>

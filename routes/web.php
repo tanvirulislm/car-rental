@@ -17,13 +17,11 @@ Route::post('/user-registration', [UserController::class, 'UserRegistration']);
 Route::get('/login', [UserController::class, 'Login']);
 Route::post('/user-login', [UserController::class, 'UserLogin']);
 
-Route::middleware(TokenVerificationMiddleware::class)->group(function () {
-    Route::get('/profile', [UserController::class, 'UserProfile']);
-
+Route::middleware([TokenVerificationMiddleware::class, 'role:admin'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'Dashboard'])->name('dashboard');
     Route::get('/customers', [CustomerController::class, 'AllCustomer']);
     Route::delete('/customers/{id}', [CustomerController::class, 'DeleteCustomer']);
-
+    Route::get('/profile', [UserController::class, 'UserProfile']);
     Route::post('/CreateCar', [CarController::class, 'CreateCar']);
     Route::get('/cars', [CarController::class, 'Cars']);
     Route::put('/cars/{car}', [CarController::class, 'UpdateCar']);
@@ -31,7 +29,8 @@ Route::middleware(TokenVerificationMiddleware::class)->group(function () {
 
     Route::post('/CreateRental', [RentalController::class, 'CreateRental']);
     Route::get('/rentals', [RentalController::class, 'Rentals']);
-
+});
+Route::middleware(TokenVerificationMiddleware::class)->group(function () {
     Route::get('/logout', [UserController::class, 'UserLogout']);
 });
 
@@ -42,10 +41,9 @@ Route::get('/all-cars', [\App\Http\Controllers\Customer\CarController::class, 'C
 Route::get('/car-details/{car}', [\App\Http\Controllers\Customer\CarController::class, 'CarDetails']);
 
 
-// Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer.')->group(function () {
-// Rental routes
-Route::post('/MakeRental', [\App\Http\Controllers\Customer\RentalController::class, 'MakeRental']);
-Route::get('/my-rentals', [\App\Http\Controllers\Customer\RentalController::class, 'AllRentals']);
-Route::get('/rentals/{rental}', [\App\Http\Controllers\Customer\RentalController::class, 'ShowRental'])->name('customer.rentals.show');
-Route::post('/rentals/{rental}/cancel', [\App\Http\Controllers\Customer\RentalController::class, 'cancel'])->name('rentals.cancel');
-// });
+Route::middleware([TokenVerificationMiddleware::class, 'role:customer'])->group(function () {
+    Route::post('/MakeRental', [\App\Http\Controllers\Customer\RentalController::class, 'MakeRental']);
+    Route::get('/my-rentals', [\App\Http\Controllers\Customer\RentalController::class, 'AllRentals']);
+    Route::get('/rentals/{rental}', [\App\Http\Controllers\Customer\RentalController::class, 'ShowRental'])->name('customer.rentals.show');
+    Route::post('/rentals/{rental}/cancel', [\App\Http\Controllers\Customer\RentalController::class, 'cancel'])->name('rentals.cancel');
+});

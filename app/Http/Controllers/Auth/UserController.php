@@ -61,7 +61,7 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $token = JWTToken::CreateToken($user->email, $user->id);
+            $token = JWTToken::CreateToken($user->email, $user->id, $user->role);
 
             $request->session()->regenerate();
             return redirect('/dashboard')->withCookie(cookie('token', $token, 60 * 24 * 30));
