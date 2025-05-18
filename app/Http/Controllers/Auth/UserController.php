@@ -64,7 +64,15 @@ class UserController extends Controller
             $token = JWTToken::CreateToken($user->email, $user->id, $user->role);
 
             $request->session()->regenerate();
-            return redirect('/dashboard')->withCookie(cookie('token', $token, 60 * 24 * 30));
+
+            // Redirect based on role
+            $redirectUrl = match ($user->role) {
+                'admin' => '/dashboard',
+                'customer' => '/my-rentals',
+                default => '/',
+            };
+
+            return redirect($redirectUrl)->withCookie(cookie('token', $token, 60 * 24 * 30));
         } else {
             return back()->withErrors(['message' => 'Invalid email or password']);
         }

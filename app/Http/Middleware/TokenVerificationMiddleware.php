@@ -18,7 +18,6 @@ class TokenVerificationMiddleware
     {
         $token = $request->cookie('token');
         $result = JWTToken::VerifyToken($token);
-        // dd($result);
         if ($result == 'unauthorized') {
             return redirect('/login');
         } else {

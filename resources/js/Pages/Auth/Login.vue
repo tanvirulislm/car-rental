@@ -12,7 +12,7 @@ function submit() {
     form.post("/user-login", form.value, {
         onSuccess: () => {
             toaster.success("Login successful!");
-            router.push("/dashboard");
+            router.push("/");
         },
         onError: (errors) => {
             if (errors.message) {
