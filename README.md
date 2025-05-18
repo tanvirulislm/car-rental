@@ -44,11 +44,11 @@ The database SQL file is included in the project's main directory as `database.s
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone <https://github.com/tanvirulislm/car-rental.git>
    ```
 2. Navigate to the project directory:
    ```bash
-   cd <repository-name>
+   cd <car-rental>
    ```
 3. Install dependencies:
    ```bash
