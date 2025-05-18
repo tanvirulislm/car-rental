@@ -1,61 +1,91 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Car Rental Web Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Project Overview
+This is a Car Rental Web Application built using **Laravel** as part of the Final Exam Week Assignment. The application allows users to browse available cars, make bookings, and view their rental history. It includes an **Admin Dashboard** for managing cars, rentals, and customers, and a **Frontend** interface for user interactions. The system supports role-based access control, email notifications for rentals, and a robust database design.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Admin Dashboard
+- **Manage Cars**: Add, edit, and delete car details (Name, Brand, Model, Year, Car Type, Daily Rent Price, Availability, Image).
+- **Manage Rentals**: View and manage (CRUD) all rentals, including Rental ID, Customer Name, Car Details, Start/End Dates, Total Cost, and Status (Ongoing, Completed, Canceled).
+- **Manage Customers**: View and manage (CRUD) customer details (Name, Email, Phone Number, Address, Rental History).
+- **Dashboard Overview**: Displays statistics like total cars, available cars, total rentals, and total earnings.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Frontend (User Interface)
+- **Browse Cars**: View available cars with filters for car type, brand, and daily rent price.
+- **Make a Booking**: Select a car, choose rental dates, and book it (ensures car availability for the selected period).
+- **Manage Bookings**: Logged-in users can view current/past bookings and cancel bookings (if not started).
+- **User Authentication**: Sign up, log in, and log out functionality with protected routes using middleware.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Email System
+- Sends rental details to the customer's email upon booking.
+- Notifies the admin via email when a car is rented, including customer details.
 
-## Learning Laravel
+### Technical Details
+- **Framework**: Laravel
+- **Database**: MySQL with tables for `users`, `cars`, and `rentals` as specified.
+- **Controllers**:
+  - Admin: `CarController`, `RentalController`, `CustomerController`
+  - Frontend: `PageController`, `CarController`, `RentalController`
+- **Models**:
+  - `User`: Includes `isAdmin()`, `isCustomer()`, and `rentals()` (hasMany).
+  - `Car`: Includes `rentals()` (hasMany).
+  - `Rental`: Includes `car()` (belongsTo) and `user()` (belongsTo).
+- **Payment**: By Cash mode (no payment system implemented).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Database
+The database schema includes:
+- **users**: id, name, email, password, role, created_at, updated_at
+- **cars**: id, name, brand, model, year, car_type, daily_rent_price, availability, image, created_at, updated_at
+- **rentals**: id, user_id, car_id, start_date, end_date, total_cost, created_at, updated_at
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+The database SQL file is included in the project's main directory as `database.sql`.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd <repository-name>
+   ```
+3. Install dependencies:
+   ```bash
+   composer install
+   npm install
+   ```
+4. Copy the `.env.example` file to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+5. Configure the `.env` file with your database and mail server settings.
+6. Generate an application key:
+   ```bash
+   php artisan key:generate
+   ```
+7. Run migrations and seed the database:
+   ```bash
+   php artisan migrate --seed
+   ```
+8. Start the development server:
+   ```bash
+   php artisan serve
+   ```
+9. Access the application at `http://localhost:8000`.
 
-## Laravel Sponsors
+## Project Presentation
+A video demonstrating all functionalities of the application (within 3-3.5 minutes) is available here:  
+[Insert Google Drive Link to Presentation Video]
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Database SQL File
+The `database.sql` file is located in the project's main directory. It contains the database schema and sample data for testing.
 
-### Premium Partners
+## Folder Structure
+The repository contains only Laravel's standard folders and files, as per the guidelines. Refer to the [demo image](https://drive.google.com/file/d/1HNlQr9zixCLHealyqQLbftPg88G18Suu/view) for the expected structure.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Notes
+- Ensure you have PHP, Composer, and Node.js installed.
+- The email system requires a configured mail driver in the `.env` file (e.g., SMTP, Mailtrap).
+- Routes are protected using Laravel middleware to ensure only authenticated users can access booking-related features.
+- The project adheres to the specified naming conventions for controllers, models, and database tables.
