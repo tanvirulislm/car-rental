@@ -40,13 +40,13 @@
                     >
                         <PencilSquareIcon class="w-5 h-5" />
                     </Link>
-                    <button
-                        @click="confirmDelete(id)"
+                    <Link
+                        :href="`/rentals/${rental}/cancel`"
                         class="text-red-600 hover:text-red-900"
                         title="Delete"
                     >
                         <TrashIcon class="w-5 h-5" />
-                    </button>
+                    </Link>
                 </div>
             </template>
         </EasyDataTable>

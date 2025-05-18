@@ -79,23 +79,22 @@
 
 <body>
     <div class="header">
-        <img src="public/logo.png" alt="Rimberio" class="h-18" />
+        <img src="{{ asset('logo.png') }}" alt="Rimberio" class="h-18" />
     </div>
 
     <h1>Your booking is confirmed!</h1>
-    <div class="confirmation-badge">CONFIRMATION #RNT-2023-5A8B2C</div>
 
-    <p>Hello [Customer Name],</p>
+    <p>Hello {{ $rental->user->name ?? 'Customer' }},</p>
     <p>
         Thank you for choosing us for your car rental needs. Below are the
         details of your reservation:
     </p>
 
-    <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-        alt="Mercedes-Benz E-Class" class="car-image" />
+    <img src="{{ $rental->car->image_url ?? 'https://via.placeholder.com/600x300' }}" alt="Mercedes-Benz E-Class"
+        class="car-image" />
 
-    <h2>Mercedes-Benz E-Class (2021)</h2>
-    <p>Luxury Sedan • Automatic • Petrol • 5 Seats</p>
+    <h2>{{ $rental->car->name ?? 'Car Model' }} ({{ $rental->car->year ?? 'Year' }})</h2>
+    <p>{{ $rental->car->brand ?? 'Brand' }} . {{ $rental->car->car_type ?? 'Car Type' }}</p>
 
     <div class="details-box">
         <div class="detail-row">
@@ -104,11 +103,11 @@
         </div>
         <div class="detail-row">
             <span><strong>Pick-Up Date & Time:</strong></span>
-            <span>Thursday, Jun 15, 2023 at 10:00 AM</span>
+            <span>{{ $rental->start_date->format('l, M d, Y \a\t h:i A') }}</span>
         </div>
         <div class="detail-row">
             <span><strong>Return Date & Time:</strong></span>
-            <span>Sunday, Jun 18, 2023 at 10:00 AM</span>
+            <span>{{ $rental->end_date->format('l, M d, Y \a\t h:i A') }}</span>
         </div>
         <div class="detail-row">
             <span><strong>Rental Duration:</strong></span>
@@ -118,23 +117,16 @@
 
     <h3>Price Summary</h3>
     <div class="detail-row">
-        <span>Base Rate (3 days × $120):</span>
-        <span>$360.00</span>
-    </div>
-    <div class="detail-row">
-        <span>Insurance Coverage:</span>
-        <span>$30.00</span>
-    </div>
-    <div class="detail-row">
-        <span>Taxes & Fees:</span>
-        <span>$0.00</span>
+        <span>Base Rate ({{ $rental->start_date->diffInDays($rental->end_date) }} days ×
+            ${{ number_format($rental->car->daily_rate, 2) }}):</span>
+        <span>${{ number_format($rental->total_cost, 2) }}</span>
     </div>
 
     <div class="divider"></div>
 
     <div class="detail-row" style="font-weight: bold; font-size: 1.1em">
         <span>Total Amount Paid:</span>
-        <span>$390.00</span>
+        <span>${{ number_format($rental->total_cost, 2) }}</span>
     </div>
 
     <h3>What to Bring to Pick-Up</h3>

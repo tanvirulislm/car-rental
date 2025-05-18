@@ -1,4 +1,5 @@
 <script setup>
+import { Link } from "@inertiajs/vue3";
 import { ref, computed } from "vue";
 const props = defineProps({
     rentals: Array,
@@ -82,6 +83,12 @@ const tabLabels = {};
 
 <template>
     <div class="container mx-auto px-4 py-8">
+        <!-- Logout button -->
+        <Link
+            href="/logout"
+            class="inline-flex items-center bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded mb-6 text-sm font-medium transition-all"
+            ><ArrowLeftOnRectangleIcon class="h-4 w-4 mr-2" /> Logout</Link
+        >
         <!-- Booking Status Tabs -->
         <div class="border-b border-gray-200 mb-6">
             <nav class="-mb-px flex space-x-8">
@@ -202,7 +209,8 @@ const tabLabels = {};
                             >
                                 Modify
                             </button>
-                            <button
+                            <Link
+                                :href="`/rentals/${rental.id}/cancel`"
                                 class="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium"
                                 :disabled="
                                     statusStyles[getRentalStatus(rental)]
@@ -215,7 +223,7 @@ const tabLabels = {};
                                 }"
                             >
                                 Cancel
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

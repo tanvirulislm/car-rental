@@ -46,5 +46,5 @@ Route::middleware([TokenVerificationMiddleware::class, 'role:customer,admin'])->
     Route::post('/MakeRental', [\App\Http\Controllers\Customer\RentalController::class, 'MakeRental']);
     Route::get('/my-rentals', [\App\Http\Controllers\Customer\RentalController::class, 'AllRentals']);
     Route::get('/rentals/{rental}', [\App\Http\Controllers\Customer\RentalController::class, 'ShowRental'])->name('customer.rentals.show');
-    Route::post('/rentals/{rental}/cancel', [\App\Http\Controllers\Customer\RentalController::class, 'cancel'])->name('rentals.cancel');
+    Route::post('/rentals/{id}/cancel', [RentalController::class, 'CancelRental']);
 });

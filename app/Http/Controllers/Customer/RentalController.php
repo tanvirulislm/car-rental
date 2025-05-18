@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Http\Controllers\Controller;
-use App\Models\Rental;
 use App\Models\Car;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use App\Models\Rental;
+use App\Mail\InvoiceMail;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class RentalController extends Controller
 {
@@ -59,6 +61,8 @@ class RentalController extends Controller
             'end_date' => $request->end_date,
             'total_cost' => $request->total_cost
         ]);
+
+        Mail::to(Auth::user()->email)->send(new InvoiceMail($rental));
 
         return redirect()->route('customer.rentals.show', ['rental' => $rental->id])->with('success', 'Car booked successfully!');
     }

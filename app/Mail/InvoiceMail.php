@@ -2,12 +2,13 @@
 
 namespace App\Mail;
 
+use App\Models\Rental;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class InvoiceMail extends Mailable
 {
@@ -16,9 +17,10 @@ class InvoiceMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $rental;
+    public function __construct(Rental $rental)
     {
-        //
+        $this->rental = $rental;
     }
 
     /**

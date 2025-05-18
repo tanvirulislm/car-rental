@@ -154,20 +154,6 @@ const resetForm = () => {
                                     >
                                         <!-- Column 1 -->
                                         <div class="space-y-4">
-                                            <!-- <div>
-                                                <label
-                                                    for="name"
-                                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                                                    >Customer Name</label
-                                                >
-                                                <input
-                                                    type="text"
-                                                    id="name"
-                                                    v-model="form.user_id"
-                                                    required
-                                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
-                                                />
-                                            </div> -->
                                             <div>
                                                 <label
                                                     for="user_id"
@@ -175,23 +161,13 @@ const resetForm = () => {
                                                 >
                                                     Customer Name
                                                 </label>
-                                                <select
-                                                    id="user_id"
+                                                <input
+                                                    type="text"
+                                                    id="car_id"
                                                     v-model="form.user_id"
                                                     required
                                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
-                                                >
-                                                    <option value="" disabled>
-                                                        Select a customer
-                                                    </option>
-                                                    <option
-                                                        v-for="user in users"
-                                                        :key="user.id"
-                                                        :value="user.id"
-                                                    >
-                                                        {{ user.name }}
-                                                    </option>
-                                                </select>
+                                                />
                                             </div>
 
                                             <div>

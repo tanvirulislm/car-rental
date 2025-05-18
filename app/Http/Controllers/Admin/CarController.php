@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Car;
+use App\Models\Rental;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -53,17 +55,18 @@ class CarController extends Controller
 
     public function Cars()
     {
-        $cars = Car::select([
-            'id',
-            'name',
-            'brand',
-            'model',
-            'year',
-            'car_type',
-            'daily_rent_price',
-            'availability',
-            'image'
-        ])->get();
+        $today = Carbon::today();
+
+        $rentedCarIdsToday = Rental::whereDate('start_date', '<=', $today)
+            ->whereDate('end_date', '>=', $today)
+            ->pluck('car_id')
+            ->toArray();
+
+
+        $cars = Car::all()->map(function ($car) use ($rentedCarIdsToday) {
+            $car->availability = !in_array($car->id, $rentedCarIdsToday);
+            return $car;
+        });
 
         return inertia('Admin/Car', [
             'car' => $cars
