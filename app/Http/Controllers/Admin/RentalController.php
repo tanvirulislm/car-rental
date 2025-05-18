@@ -15,8 +15,8 @@ class RentalController extends Controller
     public function Rentals()
     {
         $rentals = Rental::with('car', 'user')->get();
-        $users = User::all();
-        $cars = Car::all();
+        $users = User::all(['id', 'name', 'email']);
+        $cars = Car::all(['id', 'name', 'brand', 'model', 'daily_rent_price']);
 
         return Inertia::render('Admin/Rentals', [
             'rentals' => $rentals,

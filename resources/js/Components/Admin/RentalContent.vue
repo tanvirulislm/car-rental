@@ -6,7 +6,7 @@ import { Link } from "@inertiajs/vue3";
 import PlusCircle from "../Svg/PlusCircle.vue";
 import RantalList from "./RentalList.vue";
 
-defineProps(["rentals"]);
+defineProps(["rentals", "users", "cars"]);
 
 const toaster = createToaster();
 
@@ -17,6 +17,7 @@ const form = useForm({
     end_date: "",
     total_cost: "",
 });
+const today = new Date().toISOString().split("T")[0]; // "YYYY-MM-DD"
 
 watch([() => form.start_date, () => form.end_date], ([start, end]) => {
     if (start && end) {
@@ -161,13 +162,23 @@ const resetForm = () => {
                                                 >
                                                     Customer Name
                                                 </label>
-                                                <input
-                                                    type="text"
-                                                    id="car_id"
+                                                <select
+                                                    id="user_id"
                                                     v-model="form.user_id"
                                                     required
                                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
-                                                />
+                                                >
+                                                    <option value="" disabled>
+                                                        Select a Customer
+                                                    </option>
+                                                    <option
+                                                        v-for="user in users"
+                                                        :key="user.id"
+                                                        :value="user.id"
+                                                    >
+                                                        {{ user.name }}
+                                                    </option>
+                                                </select>
                                             </div>
 
                                             <div>
@@ -180,6 +191,7 @@ const resetForm = () => {
                                                     type="date"
                                                     id="start_date"
                                                     v-model="form.start_date"
+                                                    :min="today"
                                                     required
                                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
                                                 />
@@ -212,13 +224,23 @@ const resetForm = () => {
                                                     class="block text-sm font-medium text-gray-700 dark:text-gray-300"
                                                     >Car Name</label
                                                 >
-                                                <input
-                                                    type="text"
+                                                <select
                                                     id="car_id"
                                                     v-model="form.car_id"
                                                     required
                                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
-                                                />
+                                                >
+                                                    <option value="" disabled>
+                                                        Select a Car
+                                                    </option>
+                                                    <option
+                                                        v-for="car in cars"
+                                                        :key="car.id"
+                                                        :value="car.id"
+                                                    >
+                                                        {{ car.name }}
+                                                    </option>
+                                                </select>
                                             </div>
 
                                             <div>
@@ -231,6 +253,10 @@ const resetForm = () => {
                                                     id="end_date"
                                                     type="date"
                                                     v-model="form.end_date"
+                                                    :min="
+                                                        form.start_date || today
+                                                    "
+                                                    :disabled="!form.start_date"
                                                     required
                                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
                                                 />

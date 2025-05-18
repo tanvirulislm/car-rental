@@ -91,9 +91,16 @@ const headers = [
 ];
 
 const formatDate = (dateString) => {
+    console.log("Formatting:", dateString);
+    if (!dateString) return "";
     const date = new Date(dateString);
-    return dateString ? dateString.slice(0, 10) : "";
+    return new Intl.DateTimeFormat("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+    }).format(date);
 };
+
 // Action methods
 const editCar = (id) => {
     router.put(`/cars/${car}`);
