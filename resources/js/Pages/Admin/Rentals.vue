@@ -1,14 +1,12 @@
 <script setup>
 import RentalContent from "../../Components/Admin/RentalContent.vue";
 import Layout from "../../Components/Layout/Layout.vue";
-defineProps({
-    car: Array,
-});
+defineProps(["rentals"]);
 </script>
 
 <template>
     <Layout>
-        <RentalContent />
+        <RentalContent :rentals="rentals" />
     </Layout>
 </template>
 

@@ -15,33 +15,19 @@
         </div>
         <EasyDataTable
             :headers="headers"
-            :items="cars"
+            :items="rentals"
             buttons-pagination
             table-class-name="customize-table"
             :search-value="searchTerm"
             :search-fields="searchFields"
         >
-            <!-- Availability Badge -->
-            <template #item-availability="{ availability }">
-                <span
-                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                    :class="
-                        availability
-                            ? 'bg-green-100 text-green-800'
-                            : 'bg-red-100 text-red-800'
-                    "
-                >
-                    {{ availability ? "Available" : "Unavailable" }}
-                </span>
+            <!-- Car Image -->
+            <template #item.startDate="{ item }">
+                {{ formatDate(item.startDate) }}
             </template>
 
-            <!-- Car Image -->
-            <template #item-image="{ image }">
-                <img
-                    :src="image"
-                    class="w-16 h-10 object-cover rounded"
-                    alt="Car Image"
-                />
+            <template #item.endDate="{ item }">
+                {{ formatDate(item.endDate) }}
             </template>
 
             <!-- Action Buttons -->
@@ -76,27 +62,38 @@ import { Link } from "@inertiajs/vue3";
 
 const searchTerm = ref("");
 
-const searchFields = ["name", "brand", "model", "car_type", "year"];
+const props = defineProps(["rentals"]);
 
-const props = defineProps({
-    car: Array,
-});
-
-const cars = ref(props.car || []);
+const rentals = ref(
+    props.rentals.map((rental) => ({
+        id: rental.id,
+        customerName: rental.user?.name ?? "-",
+        carName: rental.car?.name ?? "-",
+        startDate: rental.start_date,
+        endDate: rental.end_date,
+        carType: rental.car?.car_type ?? "-",
+        totalCost: rental.total_cost,
+    }))
+);
 
 // Table headers configuration
+const searchFields = ["customerName", "carName", "totalCost"];
+
 const headers = [
-    { text: "Name", value: "name", sortable: true },
-    { text: "Brand", value: "brand", sortable: true },
-    { text: "Model", value: "model", sortable: true },
-    { text: "Year", value: "year", sortable: true },
-    { text: "Type", value: "car_type", sortable: true },
-    { text: "Daily Price", value: "daily_rent_price", sortable: true },
-    { text: "Availability", value: "availability", sortable: true },
-    { text: "Image", value: "image" },
+    { text: "ID", value: "id", sortable: true },
+    { text: "Customer Name", value: "customerName", sortable: true },
+    { text: "Car Name", value: "carName", sortable: true },
+    { text: "Start Date", value: "startDate", sortable: true },
+    { text: "End Date", value: "endDate", sortable: true },
+    { text: "Car Type", value: "carType", sortable: true },
+    { text: "Total Price", value: "totalCost", sortable: true },
     { text: "Actions", value: "actions", width: 100 },
 ];
 
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return dateString ? dateString.slice(0, 10) : "";
+};
 // Action methods
 const editCar = (id) => {
     router.put(`/cars/${car}`);

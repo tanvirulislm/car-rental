@@ -30,6 +30,7 @@ Route::middleware([TokenVerificationMiddleware::class, 'role:admin'])->group(fun
     Route::post('/CreateRental', [RentalController::class, 'CreateRental']);
     Route::get('/rentals', [RentalController::class, 'Rentals']);
 });
+
 Route::middleware(TokenVerificationMiddleware::class)->group(function () {
     Route::get('/logout', [UserController::class, 'UserLogout']);
 });
@@ -41,7 +42,7 @@ Route::get('/all-cars', [\App\Http\Controllers\Customer\CarController::class, 'C
 Route::get('/car-details/{car}', [\App\Http\Controllers\Customer\CarController::class, 'CarDetails']);
 
 
-Route::middleware([TokenVerificationMiddleware::class, 'role:customer'])->group(function () {
+Route::middleware([TokenVerificationMiddleware::class, 'role:customer,admin'])->group(function () {
     Route::post('/MakeRental', [\App\Http\Controllers\Customer\RentalController::class, 'MakeRental']);
     Route::get('/my-rentals', [\App\Http\Controllers\Customer\RentalController::class, 'AllRentals']);
     Route::get('/rentals/{rental}', [\App\Http\Controllers\Customer\RentalController::class, 'ShowRental'])->name('customer.rentals.show');

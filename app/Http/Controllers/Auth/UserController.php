@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use Exception;
+use Carbon\Carbon;
 use App\Models\Car;
 use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Rental;
 use App\Helper\JWTToken;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -80,7 +82,31 @@ class UserController extends Controller
 
     public function Dashboard()
     {
-        return inertia('Admin/Dashboard');
+        $today = Carbon::today();
+
+        // Total cars
+        $totalCars = Car::count();
+
+        // Cars that are rented today
+        $rentedCarIdsToday = Rental::whereDate('start_date', '<=', $today)
+            ->whereDate('end_date', '>=', $today)
+            ->pluck('car_id');
+
+        // Cars that are NOT rented today
+        $availableCars = Car::whereNotIn('id', $rentedCarIdsToday)->count();
+
+        // Total rentals
+        $totalRentals = Rental::count();
+
+        // Total earnings
+        $totalEarnings = Rental::sum('total_cost');
+
+        return inertia('Admin/Dashboard', [
+            'totalCars' => $totalCars,
+            'availableCars' => $availableCars,
+            'totalRentals' => $totalRentals,
+            'totalEarnings' => $totalEarnings,
+        ]);
     }
 
     public function UserProfile()
