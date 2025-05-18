@@ -82,7 +82,7 @@ A video demonstrating all functionalities of the application (within 3-3.5 minut
 The `database.sql` file is located in the project's main directory. It contains the database schema and sample data for testing.
 
 ## Folder Structure
-The repository contains only Laravel's standard folders and files, as per the guidelines. Refer to the [demo image](https://drive.google.com/file/d/1HNlQr9zixCLHealyqQLbftPg88G18Suu/view) for the expected structure.
+The repository contains only Laravel's standard folders and files, as per the guidelines.
 
 ## Notes
 - Ensure you have PHP, Composer, and Node.js installed.
