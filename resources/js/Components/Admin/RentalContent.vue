@@ -34,9 +34,9 @@ function submit() {
     form.post("/CreateRental", {
         onSuccess: () => {
             toaster.success("Rental created successfully!");
-            // router.push("/cars");
             closeCreateModal();
             resetForm();
+            window.location.reload();
         },
         onError: (errors) => {
             if (errors.message) {

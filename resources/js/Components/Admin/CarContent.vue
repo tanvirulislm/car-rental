@@ -283,9 +283,9 @@ function submit() {
     form.post("/CreateCar", {
         onSuccess: () => {
             toaster.success("Car created successfully!");
-            // router.push("/cars");
             closeCreateModal();
             resetForm();
+            window.location.reload();
         },
         onError: (errors) => {
             if (errors.message) {

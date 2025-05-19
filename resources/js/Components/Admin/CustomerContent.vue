@@ -175,6 +175,7 @@ function submit() {
             toaster.success("Customer created successfully!");
             closeCreateModal();
             resetForm();
+            window.location.reload();
         },
         onError: (errors) => {
             if (errors.message) {

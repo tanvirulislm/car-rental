@@ -21,17 +21,6 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function DeleteCustomer(User $id) // Laravel will try to find the User with the ID from the route
-    {
-        try {
-            $id->delete();
-            return redirect()->back()->with('success', 'Customer deleted successfully');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Failed to delete customer: ' . $e->getMessage());
-        }
-    }
-
     public function CreateCustomer(Request $request)
     {
 
@@ -54,15 +43,39 @@ class CustomerController extends Controller
         return redirect('/customers')->with('success', 'Customer created successfully');
     }
 
-    public function UpdateCustomer(Request $request, User $customer)
+    public function deleteCustomer($id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($customer->id)],
-        ]);
+        try {
+            $customer = User::findOrFail($id);
+            $customer->delete();
 
-        $customer->update($request->only(['name', 'email',]));
+            return back()->with('success', 'Customer deleted successfully');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to delete customer: ' . $e->getMessage());
+        }
+    }
 
-        return redirect('/customers')->with('success', 'Customer updated successfully.');
+    public function updateCustomer(Request $request, $customer)
+    {
+        try {
+            $customer = User::findOrFail($customer);
+
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:255',
+                    Rule::unique('users')->ignore($customer->id)
+                ],
+            ]);
+
+            $customer->update($validated);
+
+            return back()->with('success', 'Customer updated successfully');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to update customer: ' . $e->getMessage());
+        }
     }
 }
