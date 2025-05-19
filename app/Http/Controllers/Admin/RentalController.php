@@ -41,6 +41,23 @@ class RentalController extends Controller
         return redirect()->back()->with('success', 'Rental created successfully.');
     }
 
+    public function UpdateRental(Request $request)
+    {
+        $validated = $request->validate([
+            'id' => 'required|exists:rentals,id',
+            'user_id' => 'required|exists:users,id',
+            'car_id' => 'required|exists:cars,id',
+            'start_date' => 'required|date|before_or_equal:end_date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'total_cost' => 'required|numeric|min:0',
+        ]);
+
+        $rental = Rental::findOrFail($request->id);
+        $rental->update($validated);
+
+        return redirect()->back()->with('success', 'Rental updated successfully.');
+    }
+
     // cancel rental
     public function CancelRental(Rental $rental, $id)
     {

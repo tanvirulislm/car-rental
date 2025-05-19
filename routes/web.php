@@ -51,6 +51,7 @@ Route::middleware([TokenVerificationMiddleware::class, 'role:admin'])->group(fun
     // Rental Related
     Route::post('/CreateRental', [RentalController::class, 'CreateRental']);
     Route::get('/rentals', [RentalController::class, 'Rentals']);
+    Route::put('/rentals/{rental}', [RentalController::class, 'UpdateRental']);
 });
 
 
