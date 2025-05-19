@@ -190,7 +190,7 @@ const tabLabels = {};
                     <div class="md:w-1/4 p-4 flex flex-col justify-between">
                         <div class="flex justify-end space-x-2">
                             <button class="text-gray-500 hover:text-gray-700">
-                                <PrinterIcon class="h-5 w-5" />
+                                <!-- <PrinterIcon class="h-5 w-5" /> -->
                             </button>
                         </div>
                         <div class="flex space-x-2 mt-4">

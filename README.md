@@ -79,7 +79,7 @@ A video demonstrating all functionalities of the application (within 3-3.5 minut
 [Insert Google Drive Link to Presentation Video]
 
 ## Database SQL File
-The `database.sql` file is located in the project's main directory. It contains the database schema and sample data for testing.
+The `carrent.sql` file is located in the project's main directory. It contains the database schema and sample data for testing.
 
 ## Folder Structure
 The repository contains only Laravel's standard folders and files, as per the guidelines.

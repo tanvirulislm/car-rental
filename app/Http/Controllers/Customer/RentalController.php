@@ -87,6 +87,8 @@ class RentalController extends Controller
     {
         $userId = $request->header('id');
 
+
+
         if ($rental->user_id != $userId) {
             abort(403, 'Unauthorized booking access');
         }
