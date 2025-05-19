@@ -1,5 +1,5 @@
 <script setup>
-import CustomerList from "../../Components/Admin/CustomerList.vue";
+import CustomerContent from "../../Components/Admin/CustomerContent.vue";
 import Layout from "../../Components/Layout/Layout.vue";
 
 defineProps({
@@ -9,7 +9,7 @@ defineProps({
 
 <template>
     <Layout>
-        <CustomerList :customers="customers" />
+        <CustomerContent :customers="customers" />
     </Layout>
 </template>
 

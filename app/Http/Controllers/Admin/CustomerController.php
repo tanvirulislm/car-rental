@@ -20,16 +20,36 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function DeleteCustomer(User $customer)
+    public function DeleteCustomer(User $id) // Laravel will try to find the User with the ID from the route
     {
         try {
-
-            $customer->delete();
-
+            $id->delete();
             return redirect()->back()->with('success', 'Customer deleted successfully');
         } catch (\Exception $e) {
             return redirect()->back()
-                ->with('error', 'Failed to delete car: ' . $e->getMessage());
+                ->with('error', 'Failed to delete customer: ' . $e->getMessage());
         }
+    }
+
+    public function CreateCustomer(Request $request)
+    {
+
+        $request->validate([
+            "name" => "required",
+            "email" => "required|email",
+            "password" => "required|min:8",
+            "role" => "nullable",
+
+        ]);
+
+        User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'role' => $request->input('role', 'customer'),
+        ]);
+        // Send email to the customer
+        // Mail::to($request->input('email'))->send(new CustomerCreated($request->input('name')));
+        return redirect('/customers')->with('success', 'Customer created successfully');
     }
 }

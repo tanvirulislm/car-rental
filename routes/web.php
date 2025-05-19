@@ -36,6 +36,8 @@ Route::middleware([TokenVerificationMiddleware::class, 'role:admin'])->group(fun
     // Customer Related
     Route::get('/customers', [CustomerController::class, 'AllCustomer']);
     Route::delete('/customers/{id}', [CustomerController::class, 'DeleteCustomer']);
+    // Route::delete('/customers/{customer}', [CustomerController::class, 'DeleteCustomer']);
+    Route::post('/CreateCustomer', [CustomerController::class, 'CreateCustomer']);
 
     // Car Related
     Route::get('/profile', [UserController::class, 'UserProfile']);
