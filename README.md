@@ -85,7 +85,7 @@ The database SQL file is included in the project's main directory as `database.s
 ## Project Presentation
 
 A video demonstrating all functionalities of the application (within 3-3.5 minutes) is available here:  
-`https://youtu.be/7kiQCKayJzw`
+[https://youtu.be/7kiQCKayJzw]
 
 ## Database SQL File
 
