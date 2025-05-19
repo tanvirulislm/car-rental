@@ -27,6 +27,7 @@ class RentalController extends Controller
 
     public function CreateRental(Request $request)
     {
+
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'car_id' => 'required|exists:cars,id',

@@ -29,6 +29,7 @@ Route::get('/all-cars', [\App\Http\Controllers\Customer\CarController::class, 'C
 Route::get('/car-details/{car}', [\App\Http\Controllers\Customer\CarController::class, 'CarDetails']);
 
 
+// Only Admin Routes
 Route::middleware([TokenVerificationMiddleware::class, 'role:admin'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [UserController::class, 'Dashboard'])->name('dashboard');
@@ -53,10 +54,10 @@ Route::middleware([TokenVerificationMiddleware::class, 'role:admin'])->group(fun
 
 
 
-
+// Admin and Customer Routes
 Route::middleware([TokenVerificationMiddleware::class, 'role:customer,admin'])->group(function () {
     Route::post('/MakeRental', [\App\Http\Controllers\Customer\RentalController::class, 'MakeRental']);
     Route::get('/my-rentals', [\App\Http\Controllers\Customer\RentalController::class, 'AllRentals']);
     Route::get('/rentals/{rental}', [\App\Http\Controllers\Customer\RentalController::class, 'ShowRental'])->name('customer.rentals.show');
-    Route::post('/rentals/{id}/cancel', [RentalController::class, 'CancelRental']);
+    Route::get('/rentals/{rental}/cancel', [\App\Http\Controllers\Customer\RentalController::class, 'CancelRental']);
 });

@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
-import { ref, computed } from "vue";
+import { computed, ref } from "vue";
 const props = defineProps({
     rentals: Array,
 });
@@ -33,7 +33,7 @@ const getRentalStatus = (rental) => {
     } else if (startDate > today) {
         return "Upcoming";
     }
-    return "Unknown"; // Fallback, should ideally not be reached
+    return "Unknown";
 };
 
 const statusStyles = {
@@ -47,8 +47,8 @@ const statusStyles = {
         buttonDisabled: true,
     },
     Completed: {
-        badge: "bg-grey-100 text-grey-800",
-        border: "border-grey-500",
+        badge: "bg-gray-100 text-gray-800",
+        border: "border-gray-500",
         buttonDisabled: true,
     },
     Cancelled: {
@@ -133,7 +133,6 @@ const tabLabels = {};
                         <img
                             :src="rental.car.image"
                             :alt="rental.car.name"
-                            alt="Mercedes-Benz E-Class"
                             class="w-full h-full object-cover rounded-lg"
                         />
                     </div>
@@ -191,7 +190,7 @@ const tabLabels = {};
                     <div class="md:w-1/4 p-4 flex flex-col justify-between">
                         <div class="flex justify-end space-x-2">
                             <button class="text-gray-500 hover:text-gray-700">
-                                <PrinterIcon class="h-5 w-5" />
+                                <!-- <PrinterIcon class="h-5 w-5" /> -->
                             </button>
                         </div>
                         <div class="flex space-x-2 mt-4">

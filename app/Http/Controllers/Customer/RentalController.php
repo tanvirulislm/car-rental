@@ -83,22 +83,28 @@ class RentalController extends Controller
     }
 
 
-    public function cancel(Rental $rental)
+    public function CancelRental(Request $request, Rental $rental)
     {
-        // Check if rental belongs to authenticated user
-        if ($rental->user_id !== Auth::id()) {
-            abort(403);
+        $userId = $request->header('id');
+
+
+
+        if ($rental->user_id != $userId) {
+            abort(403, 'Unauthorized booking access');
         }
 
-        // Only allow cancellation if start date is in the future
+        // You said you don't want to delete → just shorten the rental
         if (strtotime($rental->start_date) <= strtotime('today')) {
             return back()->withErrors([
                 'cancel' => 'You cannot cancel bookings that have already started.'
             ]);
         }
 
-        // Delete the rental
-        $rental->delete();
+        // Set both start_date and end_date to today
+        $today = now()->toDateString();
+        $rental->start_date = $today;
+        $rental->end_date = $today;
+        $rental->save();
 
         return redirect('/my-rentals')
             ->with('success', 'Booking cancelled successfully.');
