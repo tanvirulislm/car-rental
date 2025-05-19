@@ -47,8 +47,8 @@ const statusStyles = {
         buttonDisabled: true,
     },
     Completed: {
-        badge: "bg-grey-100 text-grey-800",
-        border: "border-grey-500",
+        badge: "bg-gray-100 text-gray-800",
+        border: "border-gray-500",
         buttonDisabled: true,
     },
     Cancelled: {
@@ -133,7 +133,6 @@ const tabLabels = {};
                         <img
                             :src="rental.car.image"
                             :alt="rental.car.name"
-                            alt="Mercedes-Benz E-Class"
                             class="w-full h-full object-cover rounded-lg"
                         />
                     </div>
