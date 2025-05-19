@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
-import { ref, computed } from "vue";
+import { computed, ref } from "vue";
 const props = defineProps({
     rentals: Array,
 });
@@ -33,7 +33,7 @@ const getRentalStatus = (rental) => {
     } else if (startDate > today) {
         return "Upcoming";
     }
-    return "Unknown"; // Fallback, should ideally not be reached
+    return "Unknown";
 };
 
 const statusStyles = {

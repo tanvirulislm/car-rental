@@ -16,6 +16,7 @@ class Car extends Model
      */
     protected $fillable = [
         'name',
+        'brand',
         'model',
         'year',
         'car_type',

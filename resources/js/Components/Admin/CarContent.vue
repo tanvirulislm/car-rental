@@ -268,6 +268,7 @@ defineProps({
 const toaster = createToaster();
 
 const form = useForm({
+    id: null,
     name: "",
     brand: "",
     model: "",

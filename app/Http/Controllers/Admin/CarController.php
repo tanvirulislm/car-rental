@@ -17,7 +17,7 @@ class CarController extends Controller
 
         $request->validate([
             "name" => "required",
-            "brand" => "required",
+            "brand" => "nullable",
             "model" => "required",
             "year" => "required",
             "car_type" => "required",
